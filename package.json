@@ -1,0 +1,32 @@
+{
+  "name": "fun-cli",
+  "version": "0.1.0",
+  "description": "The client of the fun framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neuralgeeks/fun-cli.git"
+  },
+  "keywords": [
+    "fun",
+    "fun-cli"
+  ],
+  "author": "neuralgeeks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neuralgeeks/fun-cli/issues"
+  },
+  "homepage": "https://github.com/neuralgeeks/fun-cli#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.0.0",
+    "figlet": "^1.5.0",
+    "template-file": "^3.1.0"
+  },
+  "bin": {
+    "fun-cli": "./bin/index.js"
+  }
+}

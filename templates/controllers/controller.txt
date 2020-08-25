@@ -1,0 +1,140 @@
+const bcrypt = require('bcrypt');
+const R = require('ramda');
+const BCRYPT_SALT_ROUNDS = 11;
+
+const BaseController = require('fun.framework/classes/src/BaseController');
+const Logger = require('fun.framework/classes/Logger');
+const logger = new Logger();
+
+const {{ resourceCaps }}Repository = require('../database/repositories/{{ resourceSingular }}.repository');
+const {{ resourceCaps }}Transform = require('../transforms/{{ resourceSingular }}.transform');
+
+const Errors = require('../errors');
+const {{ resourceSingular }}Repository = new {{ resourceCaps }}Repository();
+
+class {{ resourceCaps }}Controller extends BaseController {
+  constructor() {
+    super();
+
+    this.transforms = {
+      {{ resourceSingular }}: new {{ resourceCaps }}Transform(),
+    };
+  }
+
+  /**
+   * @api {get} {{ resourcePlural }}/ getAll{{ resourceCaps }}s
+   * @apiName getAll{{ resourceCaps }}s
+   * @apiGroup {{ resourceCaps }}
+   * @apiVersion 1.0.0
+   * @apiDescription Get all {{ resourcePlural }}
+   *
+   * @apiHeader {Header} Authorization JWT Bearer security token.
+   *
+   * @apiSuccess {Array} data Returns an array of {{ resourcePlural }}
+   *
+   */
+  async index(req, res, validated) {
+    //--------------------- getting {{ resourcePlural }} data ---------------------//
+    let {{ resourcePlural }} = await {{ resourceSingular }}Repository.all();
+
+    //---------------------- sending response ----------------------//
+    this.response(res).JSONAPI.data({{ resourcePlural }}, this.transforms.{{ resourceSingular }}.collection);
+  }
+
+  /**
+   * @api {get} {{ resourcePlural }}/:id get{{ resourceCaps }}
+   * @apiName get{{ resourceCaps }}
+   * @apiGroup {{ resourceCaps }}
+   * @apiVersion 1.0.0
+   * @apiDescription Get a {{ resourceSingular }}
+   *
+   * @apiHeader {Header} Authorization JWT Bearer security token.
+   *
+   * @apiSuccess {Object} data Returns the data of a {{ resourceSingular }}
+   *
+   */
+  async show(req, res, validated) {
+    //---------------------- getting {{ resourceSingular }} data ---------------------//
+    let {{ resourceSingular }} = await {{ resourceSingular }}Repository.show(validated.id);
+    if (!{{ resourceSingular }}) {
+      this.throw(req, res, new Errors.ResourceNotFoundError());
+    }
+
+    //---------------------- sending response ----------------------//
+    this.response(res).JSONAPI.data({{ resourceSingular }}, this.transforms.{{ resourceSingular }}.item);
+  }
+
+  /**
+   * @api {post} {{ resourcePlural }}/:id create{{ resourceCaps }}
+   * @apiName create{{ resourceCaps }}
+   * @apiGroup {{ resourceCaps }}
+   * @apiVersion 1.0.0
+   * @apiDescription Create a {{ resourceSingular }}
+   *
+   * @apiHeader {Header} Authorization JWT Bearer security token.
+   *
+   * @apiParam {String} example Example param
+   *
+   * @apiSuccess {Object} data Returns the id of the new {{ resourceSingular }}
+   *
+   */
+  async store(req, res, validated) {
+    //----------------------- creating {{ resourceSingular }} ------------------------//
+    validated.password = await bcrypt.hash(
+      validated.password,
+      BCRYPT_SALT_ROUNDS
+    );
+    let {{ resourceSingular }} = await {{ resourceSingular }}Repository.create(validated);
+
+    //---------------------- sending response ----------------------//
+    this.response(res, 201).JSONAPI.reference({{ resourceSingular }}.id, '{{ resourceSingular }}');
+  }
+
+  /**
+   * @api {put} {{ resourcePlural }}/:id update{{ resourceCaps }}
+   * @apiName update{{ resourceCaps }}
+   * @apiGroup {{ resourceCaps }}
+   * @apiVersion 1.0.0
+   * @apiDescription Update a {{ resourceSingular }}
+   *
+   * @apiHeader {String} Authorization JWT Bearer security token.
+   *
+   * @apiSuccess {Object} data Returns the id of the updated {{ resourceSingular }}.
+   *
+   */
+  async update(req, res, validated) {
+    //----------------------- updating {{ resourceSingular }} ------------------------//
+    let affectedRows = await {{ resourceSingular }}Repository.update(validated.id, validated);
+
+    //---------------------- sending response ----------------------//
+    this.response(res).JSONAPI.reference(validated.id, '{{ resourceSingular }}', {
+      meta: {
+        affectedRows: affectedRows[0],
+      },
+    });
+  }
+
+  /**
+   * @api {delete} {{ resourcePlural }}/:id delete{{ resourceCaps }}
+   * @apiName delete{{ resourceCaps }}
+   * @apiGroup {{ resourceCaps }}
+   * @apiVersion 1.0.0
+   * @apiDescription Delete a {{ resourceSingular }}
+   *
+   * @apiParam {Header} Authorization JWT Bearer security token.
+   *
+   * @apiSuccess {Object} meta Returns the affected rows.
+   *
+   */
+  async destroy(req, res, validated) {
+    //----------------------- deleting {{ resourceSingular }} ------------------------//
+    let affectedRows = await {{ resourceSingular }}Repository.delete(validated.id);
+
+    //---------------------- sending response ----------------------//
+    this.response(res).JSONAPI.meta({
+      affectedRows: affectedRows,
+    });
+  }
+}
+
+module.exports = {{ resourceCaps }}Controller;

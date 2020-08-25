@@ -1,0 +1,16 @@
+const Sequelize = require('sequelize');
+
+let {{ resourceCaps }} = global.sequelize.define(
+  '{{ resourceCaps }}',
+  {
+    id: {
+      type: Sequelize.INTEGER(11),
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+  },
+  { tableName: '{{ resourcePlural }}' }
+);
+
+module.exports = {{ resourceCaps }};
