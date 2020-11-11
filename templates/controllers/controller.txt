@@ -1,6 +1,4 @@
-const bcrypt = require('bcrypt');
 const R = require('ramda');
-const BCRYPT_SALT_ROUNDS = 11;
 
 const BaseController = require('fun.framework/classes/src/BaseController');
 const Logger = require('fun.framework/classes/Logger');
@@ -65,7 +63,7 @@ class {{ resourceCaps }}Controller extends BaseController {
   }
 
   /**
-   * @api {post} {{ resourcePlural }}/:id create{{ resourceCaps }}
+   * @api {post} {{ resourcePlural }} create{{ resourceCaps }}
    * @apiName create{{ resourceCaps }}
    * @apiGroup {{ resourceCaps }}
    * @apiVersion 1.0.0
@@ -80,10 +78,6 @@ class {{ resourceCaps }}Controller extends BaseController {
    */
   async store(req, res, validated) {
     //----------------------- creating {{ resourceSingular }} ------------------------//
-    validated.password = await bcrypt.hash(
-      validated.password,
-      BCRYPT_SALT_ROUNDS
-    );
     let {{ resourceSingular }} = await {{ resourceSingular }}Repository.create(validated);
 
     //---------------------- sending response ----------------------//

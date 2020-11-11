@@ -1,6 +1,4 @@
-const bcrypt = require('bcrypt');
 const R = require('ramda');
-const BCRYPT_SALT_ROUNDS = 11;
 
 const BaseController = require('fun.framework/classes/src/BaseController');
 const Logger = require('fun.framework/classes/Logger');
@@ -17,7 +15,7 @@ class UserController extends BaseController {
     super();
 
     this.transforms = {
-      user: new UserTransform(),
+      user: new UserTransform()
     };
   }
 
@@ -65,7 +63,7 @@ class UserController extends BaseController {
   }
 
   /**
-   * @api {post} users/:id createUser
+   * @api {post} users/ createUser
    * @apiName createUser
    * @apiGroup User
    * @apiVersion 1.0.0
@@ -80,10 +78,6 @@ class UserController extends BaseController {
    */
   async store(req, res, validated) {
     //----------------------- creating user ------------------------//
-    validated.password = await bcrypt.hash(
-      validated.password,
-      BCRYPT_SALT_ROUNDS
-    );
     let user = await userRepository.create(validated);
 
     //---------------------- sending response ----------------------//
@@ -109,8 +103,8 @@ class UserController extends BaseController {
     //---------------------- sending response ----------------------//
     this.response(res).JSONAPI.reference(validated.id, 'user', {
       meta: {
-        affectedRows: affectedRows[0],
-      },
+        affectedRows: affectedRows[0]
+      }
     });
   }
 
@@ -132,7 +126,7 @@ class UserController extends BaseController {
 
     //---------------------- sending response ----------------------//
     this.response(res).JSONAPI.meta({
-      affectedRows: affectedRows,
+      affectedRows: affectedRows
     });
   }
 }
