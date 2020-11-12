@@ -3,8 +3,8 @@
 const chalk = require('chalk');
 const figlet = require('figlet');
 const { Command } = require('commander');
-const init = require('../lib/init');
-const generate = require('../lib/generate');
+const init = require('../lib/commands/init.command');
+const generate = require('../lib/commands/generate.command');
 
 const program = new Command();
 
