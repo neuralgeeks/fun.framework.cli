@@ -11,10 +11,10 @@ const program = new Command();
 let basePath = process.cwd();
 
 program
-  .command('init')
-  .description('inits the fun.framework project')
-  .action(() => {
-    init(basePath);
+  .command('init <name>')
+  .description('inits the a fun.framework project with the given name')
+  .action((name) => {
+    init(basePath, name);
   });
 
 // TODO: this description is really bad. Learn to do it right.
