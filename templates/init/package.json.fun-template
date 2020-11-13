@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node start.js",
-    "custom-install": "node npm-install.js",
+    "fun-install": "node npm-install.js",
     "dev-db:reset": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test-db:reset": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all"
   },
