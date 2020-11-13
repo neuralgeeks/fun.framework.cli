@@ -1,3 +1,4 @@
+const path = require('path');
 const { spawn } = require('child_process');
 const R = require('ramda');
 const config = require('./config/start.config.json');
@@ -11,7 +12,11 @@ let installable = R.uniq(
 
 // -------------------- Build the shell command ------------------- //
 let cmd = installable.reduce((acc, next) => {
-  return `${acc} & (cd services/${next} && npm install && npm rebuild)`;
+  return `${acc} & (cd ${path.join(
+    __dirname,
+    'services',
+    next
+  )} && npm install && npm rebuild)`;
 }, '(npm install)');
 
 // -------------------- spawn the shell command ------------------- //
