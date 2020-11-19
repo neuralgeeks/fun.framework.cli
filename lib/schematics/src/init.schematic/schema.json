@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "fun-cli.init",
+  "title": "init",
+  "type": "object",
+  "description": "inits a fun.framework project",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "the name of the person",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Tell me funny name"
+    },
+    "color": {
+      "type": "string",
+      "description": "your favorite color",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      },
+      "x-prompt": {
+        "message": "Tell me your favorite colour?",
+        "type": "list",
+        "multiselect": false,
+        "items": ["Red", "Blue", "Green"]
+      }
+    }
+  },
+  "required": ["name", "color"]
+}

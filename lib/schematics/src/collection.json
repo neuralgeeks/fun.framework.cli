@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "init": {
+      "description": "inits a fun.framework project",
+      "factory": "./init.schematic/index#init",
+      "schema": "./init.schematic/schema.json"
+    }
+  }
+}
