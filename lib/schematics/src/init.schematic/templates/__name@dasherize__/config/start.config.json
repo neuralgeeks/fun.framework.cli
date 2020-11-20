@@ -1,0 +1,9 @@
+{
+  "services": [
+    {
+      "service": "API.service",
+      "port": 3110,
+      "name": "API service"
+    }
+  ]
+}

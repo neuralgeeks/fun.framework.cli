@@ -1,12 +1,28 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+  apply,
+  mergeWith,
+  template,
+  url
+} from '@angular-devkit/schematics';
+import { strings } from '@angular-devkit/core';
+import { Schema } from './schema';
 
-export function init(_options: any): Rule {
+export function init(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    let { name, color } = _options;
-    tree.create(
-      'fun.js',
-      `console.log('This is a sample, hello ${name}. Your favorite color is ${color}')`
-    );
-    return tree;
+    // Template source
+    const sourceTemplates = url('./templates');
+
+    // Applying template
+    const sourceParametrizedTemplates = apply(sourceTemplates, [
+      template({
+        ..._options,
+        ...strings
+      })
+    ]);
+
+    return mergeWith(sourceParametrizedTemplates)(tree, _context);
   };
 }

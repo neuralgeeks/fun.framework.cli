@@ -3,31 +3,17 @@
   "id": "fun-cli.init",
   "title": "init",
   "type": "object",
-  "description": "inits a fun.framework project",
+  "description": "Inits a fun.framework project",
   "properties": {
     "name": {
       "type": "string",
-      "description": "the name of the person",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Tell me funny name"
+      "description": "The name of the new projects",
+      "x-prompt": "How would you want to name the project?"
     },
-    "color": {
+    "version": {
       "type": "string",
-      "description": "your favorite color",
-      "uniqueItems": true,
-      "items": {
-        "type": "string"
-      },
-      "x-prompt": {
-        "message": "Tell me your favorite colour?",
-        "type": "list",
-        "multiselect": false,
-        "items": ["Red", "Blue", "Green"]
-      }
+      "description": "The version of fun-cli"
     }
   },
-  "required": ["name", "color"]
+  "required": ["name", "version"]
 }
