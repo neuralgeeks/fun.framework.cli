@@ -8,12 +8,11 @@ import {
   template,
   url
 } from '@angular-devkit/schematics';
-// import { Observable } from 'rxjs';
-// import * as inquirer from 'inquirer';
 import { strings } from '@angular-devkit/core';
+import { plural } from 'pluralize';
 import { Schema } from './schema';
 
-export function generateService(_options: Schema): Rule {
+export function generateController(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     // Validate that root is a fun.framework project
     if (!tree.exists('./fun-cli.json')) {
@@ -21,8 +20,13 @@ export function generateService(_options: Schema): Rule {
     }
 
     // Validate that given service exists
-    if (tree.exists(`.services/${_options.name}.service`)) {
-      throw new SchematicsException('Service already exist');
+    if (
+      !tree
+        .getDir('./services')
+        .subdirs.map((item) => item.toString())
+        .includes(_options.service)
+    ) {
+      throw new SchematicsException('Given service does not exist');
     }
 
     // Template source
@@ -32,10 +36,14 @@ export function generateService(_options: Schema): Rule {
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       template({
         ..._options,
-        ...strings
+        ...strings,
+        identity,
+        plural
       })
     ]);
 
     return mergeWith(sourceParametrizedTemplates)(tree, _context);
   };
 }
+
+let identity = (x: any): any => x;
