@@ -8,12 +8,19 @@
     "name": {
       "type": "string",
       "description": "The name of the new projects",
-      "x-prompt": "How would you want to name the project?"
+      "x-prompt": "How would you want to name the project?",
+      "default": "project"
+    },
+    "shouldGenerateService": {
+      "type": "boolean",
+      "description": "Wether or not the init command should create de base API.service",
+      "x-prompt": "Would you like to create a base API service?",
+      "default": true
     },
     "version": {
       "type": "string",
       "description": "The version of fun-cli"
     }
   },
-  "required": ["name", "version"]
+  "required": ["name", "shouldGenerateService", "version"]
 }

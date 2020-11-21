@@ -50,7 +50,7 @@ export function generateService(_options: Schema): Rule {
     }
 
     // Template source
-    const sourceTemplates = url('./templates');
+    const sourceTemplates = url(`${__dirname}/templates`);
 
     // Applying template
     const sourceParametrizedTemplates = apply(sourceTemplates, [

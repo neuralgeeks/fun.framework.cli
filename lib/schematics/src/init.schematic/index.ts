@@ -5,15 +5,18 @@ import {
   apply,
   mergeWith,
   template,
-  url
+  url,
+  chain,
+  applyToSubtree
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
+import { strings, normalize } from '@angular-devkit/core';
+import { generateService } from '../generate:service.schematic/index';
 import { Schema } from './schema';
 
 export function init(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     // Template source
-    const sourceTemplates = url('./templates');
+    const sourceTemplates = url(`${__dirname}/templates`);
 
     // Applying template
     const sourceParametrizedTemplates = apply(sourceTemplates, [
@@ -23,6 +26,19 @@ export function init(_options: Schema): Rule {
       })
     ]);
 
-    return mergeWith(sourceParametrizedTemplates)(tree, _context);
+    // Base rules, merging the template
+    let rules: [Rule] = [mergeWith(sourceParametrizedTemplates)];
+
+    // Generation the API service if wanted
+    if (_options.shouldGenerateService) {
+      rules.push(
+        applyToSubtree(normalize(`./${strings.dasherize(_options.name)}`), [
+          generateService({ name: 'API' })
+        ])
+      );
+    }
+
+    // Return the chain of all rules
+    return chain(rules)(tree, _context);
   };
 }
