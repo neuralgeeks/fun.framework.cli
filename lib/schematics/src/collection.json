@@ -5,6 +5,11 @@
       "description": "inits a fun.framework project",
       "factory": "./init.schematic/index#init",
       "schema": "./init.schematic/schema.json"
+    },
+    "generate-service": {
+      "description": "Generates a new service inside a fun.framework project",
+      "factory": "./generate:service.schematic/index#generateService",
+      "schema": "./generate:service.schematic/schema.json"
     }
   }
 }
