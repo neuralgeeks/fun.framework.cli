@@ -13,7 +13,7 @@ let path = process.cwd();
 // -------------------------- init ---------------------------- //
 program
   .command('init')
-  .description('inits the a fun.framework project')
+  .description('inits a fun.framework project')
   .action(() => {
     init(path);
   });
