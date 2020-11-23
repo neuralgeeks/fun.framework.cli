@@ -10,6 +10,7 @@ import { Schema } from './schema';
 import { generateController } from '../generate:controller.schematic/index';
 import { generateModel } from '../generate:model.schematic/index';
 import { generateRepository } from '../generate:repository.schematic/index';
+import { generateRoutes } from '../generate:routes.schematic/index';
 
 export function generateResource(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -53,10 +54,16 @@ export function generateResource(_options: Schema): Rule {
       });
 
       // TODO: Generate rest validators
-      // TODO: Generate routes
+
+      // Generate routes
+      let routesRule = generateRoutes({
+        name: _options.name,
+        service: service
+      });
+
       // TODO: Generate transforms
 
-      return chain([controllerRule, modelRule, repositoryRule]);
+      return chain([controllerRule, modelRule, repositoryRule, routesRule]);
     };
   };
 }
