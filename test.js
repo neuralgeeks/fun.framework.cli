@@ -19,5 +19,5 @@ run(
   `${__dirname}/temp/project`,
   'generate-resource',
   { version: version },
-  { dryRun: true, debug: true }
+  { dryRun: false, debug: true }
 );
