@@ -8,6 +8,7 @@ import {
 import * as inquirer from 'inquirer';
 import { Schema } from './schema';
 import { generateController } from '../generate:controller.schematic/index';
+import { generateModel } from '../generate:model.schematic/index';
 
 export function generateResource(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -38,13 +39,18 @@ export function generateResource(_options: Schema): Rule {
         service: service
       });
 
-      // TODO: Generate model
+      // Generate model
+      let modelRule = generateModel({
+        name: _options.name,
+        service: service
+      });
+
       // TODO: Generate reporitory
       // TODO: Generate rest validators
       // TODO: Generate routes
       // TODO: Generate transforms
 
-      return chain([controllerRule]);
+      return chain([controllerRule, modelRule]);
     };
   };
 }
