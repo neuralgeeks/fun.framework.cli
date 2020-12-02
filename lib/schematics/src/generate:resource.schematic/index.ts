@@ -12,6 +12,7 @@ import { generateModel } from '../generate:model.schematic/index';
 import { generateRepository } from '../generate:repository.schematic/index';
 import { generateRoutes } from '../generate:routes.schematic/index';
 import { generateTransform } from '../generate:transform.schematic/index';
+import { generateRestValidators } from '../generate:rest-validators.schematic/index';
 
 export function generateResource(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -54,7 +55,11 @@ export function generateResource(_options: Schema): Rule {
         service: service
       });
 
-      // TODO: Generate rest validator
+      // Generate rest validator
+      let restValidatorsRule = generateRestValidators({
+        name: _options.name,
+        service: service
+      });
 
       // Generate routes
       let routesRule = generateRoutes({
@@ -72,6 +77,7 @@ export function generateResource(_options: Schema): Rule {
         controllerRule,
         modelRule,
         repositoryRule,
+        restValidatorsRule,
         routesRule,
         transformRule
       ]);

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "fun-cli.generate:rest-validators",
+  "title": "Generate a set of rest validators",
+  "type": "object",
+  "description": "Generates a new set of rest validators inside a fun.framework project",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the rest entity",
+      "x-prompt": "Enter the name of the rest entity"
+    },
+    "service": {
+      "type": "string",
+      "description": "The name of the service that will contain the set of validators",
+      "x-prompt": "Enter the name of the service that will contain the set of rest validators"
+    }
+  },
+  "required": ["name", "service"]
+}
