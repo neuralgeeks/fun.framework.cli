@@ -4,6 +4,7 @@
   "description": "<%= dasherize(name) %>, an awesome fun.framework project",
   "main": "app.js",
   "scripts": {
+    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all && NODE_ENV=test jest --runInBand",
     "start": "node start.js",
     "dev-db:reset": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test-db:reset": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all"
@@ -11,6 +12,15 @@
   "repository": {
     "type": "git",
     "url": ""
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./tests/jest.setup.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "author": "fun.framework CLI",
   "license": "MIT",
@@ -22,6 +32,11 @@
     "fun.framework": "0.2.0",
     "mysql2": "^2.1.0",
     "ramda": "^0.27.0",
-    "sequelize": "^5.21.11"
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {
+    "jest": "^26.4.0",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^4.0.2"
   }
 }
