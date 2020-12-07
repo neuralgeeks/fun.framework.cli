@@ -84,12 +84,12 @@ function addServiceToStartConfig(_options: Schema): Rule {
 
     // Estimating available port
     let lastService = [...startConfig.services].pop();
-    let estimatedAvailablePort = lastService.port + 1;
+    let estimatedAvailablePort = lastService ? lastService.port + 1 : 3110;
 
     // Adding the new service
     startConfig.services.push({
       service: `${strings.dasherize(_options.name)}.service`,
-      port: Number(estimatedAvailablePort),
+      port: estimatedAvailablePort,
       name: `${strings.capitalize(strings.dasherize(_options.name))} service`
     });
 
