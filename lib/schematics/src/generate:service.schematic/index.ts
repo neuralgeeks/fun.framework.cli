@@ -16,6 +16,7 @@ import {
   NodeDependencyType
 } from '@schematics/angular/utility/dependencies';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import * as prettier from 'prettier';
 import { Schema } from './schema';
 
 export function generateService(_options: Schema): Rule {
@@ -43,6 +44,7 @@ export function generateService(_options: Schema): Rule {
 
     return chain([
       mergeWith(sourceParametrizedTemplates),
+      addServiceToStartConfig(_options),
       addServiceLocalDependencies(_options),
       npmInstall(_options)
     ]);
@@ -51,6 +53,7 @@ export function generateService(_options: Schema): Rule {
 
 function addServiceLocalDependencies(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
+    // Reading service's package.json
     const packageJSONBuffer = tree.read(
       `./services/${strings.dasherize(_options.name)}.service/package.json`
     );
@@ -59,11 +62,42 @@ function addServiceLocalDependencies(_options: Schema): Rule {
     }
     const packageJSON: any = JSON.parse(packageJSONBuffer.toString());
 
+    // Adding service as local dependency
     const nodeDependency: NodeDependency = _nodeDependencyFactory(
       `${packageJSON.name}`,
       `file:services/${strings.dasherize(_options.name)}.service`
     );
     addPackageJsonDependency(tree, nodeDependency);
+  };
+}
+
+function addServiceToStartConfig(_options: Schema): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    // Reading start.config.json
+    const startConfigJSONBuffer = tree.read('./config/start.config.json');
+    if (!startConfigJSONBuffer) {
+      throw new SchematicsException(
+        "Failed to read project's start.config.json"
+      );
+    }
+    let startConfig: any = JSON.parse(startConfigJSONBuffer.toString());
+
+    // Estimating available port
+    let lastService = [...startConfig.services].pop();
+    let estimatedAvailablePort = lastService.port + 1;
+
+    // Adding the new service
+    startConfig.services.push({
+      service: `${strings.dasherize(_options.name)}.service`,
+      port: Number(estimatedAvailablePort),
+      name: `${strings.capitalize(strings.dasherize(_options.name))} service`
+    });
+
+    // Updating the start.config.json
+    tree.overwrite(
+      './config/start.config.json',
+      prettier.format(JSON.stringify(startConfig), { parser: 'json' })
+    );
   };
 }
 
