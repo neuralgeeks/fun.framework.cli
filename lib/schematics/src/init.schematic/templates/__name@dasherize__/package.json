@@ -20,7 +20,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "testSequencer": "./tests/jest.sequencer.js"
   },
   "author": "fun.framework CLI",
   "license": "MIT",
