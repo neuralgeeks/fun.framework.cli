@@ -13,6 +13,7 @@ import { generateRepository } from '../generate:repository.schematic/index';
 import { generateRoutes } from '../generate:routes.schematic/index';
 import { generateTransform } from '../generate:transform.schematic/index';
 import { generateRestValidators } from '../generate:rest-validators.schematic/index';
+import { generateResourceTestingSpecs } from '../generate:resource-testing-spec.schematic/index';
 
 export function generateResource(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -73,13 +74,20 @@ export function generateResource(_options: Schema): Rule {
         service: service
       });
 
+      // Generate testing specs
+      let testingSpecsRule = generateResourceTestingSpecs({
+        name: _options.name,
+        service: service
+      });
+
       return chain([
         controllerRule,
         modelRule,
         repositoryRule,
         restValidatorsRule,
         routesRule,
-        transformRule
+        transformRule,
+        testingSpecsRule
       ]);
     };
   };
