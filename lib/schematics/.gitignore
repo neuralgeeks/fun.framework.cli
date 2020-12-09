@@ -1,7 +1,11 @@
 # Outputs
-src/*/*.js
-src/*/*.js.map
-src/*/*.d.ts
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+utility/**/*.js
+utility/**/*.js.map
+utility/**/*.d.ts
+
 
 # IDEs
 .idea/
