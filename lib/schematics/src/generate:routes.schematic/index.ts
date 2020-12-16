@@ -145,6 +145,7 @@ function _getRouteDeclarationToInsertContent(
   // TODO: use .prettierc of the current project
   return `${firstDeclaration ? '\n\n' : '\n'}${prettier.format(content, {
     trailingComma: 'none',
+    parser: 'babel',
     tabWidth: 2,
     semi: true,
     singleQuote: true
