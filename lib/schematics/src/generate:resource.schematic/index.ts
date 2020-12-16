@@ -6,6 +6,7 @@ import {
   chain
 } from '@angular-devkit/schematics';
 import * as inquirer from 'inquirer';
+import { singular } from 'pluralize';
 import { Schema, GranulatedElementsSelection } from './schema';
 import { generateController } from '../generate:controller.schematic/index';
 import { generateModel } from '../generate:model.schematic/index';
@@ -22,6 +23,9 @@ export function generateResource(_options: Schema): Rule {
       if (!tree.exists('./fun-cli.json')) {
         throw new SchematicsException('Folder is not a fun.framework project');
       }
+
+      // Making sure the name is singular
+      _options.name = singular(_options.name);
 
       // Getting services
       let services = tree.getDir('./services').subdirs;
