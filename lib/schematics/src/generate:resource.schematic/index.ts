@@ -6,7 +6,7 @@ import {
   chain
 } from '@angular-devkit/schematics';
 import * as inquirer from 'inquirer';
-import { Schema } from './schema';
+import { Schema, GranulatedElementsSelection } from './schema';
 import { generateController } from '../generate:controller.schematic/index';
 import { generateModel } from '../generate:model.schematic/index';
 import { generateRepository } from '../generate:repository.schematic/index';
@@ -38,57 +38,60 @@ export function generateResource(_options: Schema): Rule {
 
       let service = answers.service;
 
+      // Picking elements to be generated
+      let elementsAnswers = await inquirer.prompt([
+        {
+          type: 'checkbox',
+          name: 'granulatedElementsSelection',
+          message:
+            'Wich elements would you like to be generated with the resource?',
+          choices: [
+            'Controller',
+            'Model',
+            'Repository',
+            'REST Validators',
+            'Routes',
+            'Transformer',
+            'Testing specs'
+          ].map((value) => {
+            return { value: value, checked: true };
+          })
+        }
+      ]);
+
+      const elementsSelection = new GranulatedElementsSelection(
+        elementsAnswers.granulatedElementsSelection
+      );
+      let ruleFactories: ((_options: any) => Rule)[] = [];
+
       // Generate controller
-      let controllerRule = generateController({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.controller) ruleFactories.push(generateController);
 
       // Generate model
-      let modelRule = generateModel({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.model) ruleFactories.push(generateModel);
 
       // Generate reporitory
-      let repositoryRule = generateRepository({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.repository) ruleFactories.push(generateRepository);
 
       // Generate rest validator
-      let restValidatorsRule = generateRestValidators({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.restValidators)
+        ruleFactories.push(generateRestValidators);
 
       // Generate routes
-      let routesRule = generateRoutes({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.routes) ruleFactories.push(generateRoutes);
 
       // Generate transform
-      let transformRule = generateTransform({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.transform) ruleFactories.push(generateTransform);
 
       // Generate testing specs
-      let testingSpecsRule = generateResourceTestingSpecs({
-        name: _options.name,
-        service: service
-      });
+      if (elementsSelection.testingSpecs)
+        ruleFactories.push(generateResourceTestingSpecs);
 
-      return chain([
-        controllerRule,
-        modelRule,
-        repositoryRule,
-        restValidatorsRule,
-        routesRule,
-        transformRule,
-        testingSpecsRule
-      ]);
+      return chain(
+        ruleFactories.map((factory) =>
+          factory({ ..._options, service: service })
+        )
+      );
     };
   };
 }
