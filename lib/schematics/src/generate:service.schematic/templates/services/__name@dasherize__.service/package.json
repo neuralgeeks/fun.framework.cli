@@ -4,7 +4,7 @@
   "description": "A fun.framework service",
   "main": "app.js",
   "scripts": {
-    "docs": "apidoc -i ./src/ -o ./docs/"
+    "docs": "apidoc -i ./src/ -o ./src/docs/"
   },
   "repository": {
     "type": "git",

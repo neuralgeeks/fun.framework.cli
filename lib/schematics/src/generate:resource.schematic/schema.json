@@ -9,7 +9,9 @@
       "type": "string",
       "description": "The name of the resource",
       "x-prompt": "Enter the name of the new resource",
-      "default": "entity"
+      "default": "entity",
+      "minLength": 1,
+      "pattern": "[A-Za-z0-9][^]*[A-Za-z0-9]"
     }
   },
   "required": ["name"]

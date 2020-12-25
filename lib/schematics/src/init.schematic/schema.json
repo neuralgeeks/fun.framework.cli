@@ -9,7 +9,9 @@
       "type": "string",
       "description": "The name of the new projects",
       "x-prompt": "How would you want to name the project?",
-      "default": "project"
+      "default": "project",
+      "minLength": 1,
+      "pattern": "[A-Za-z0-9][^]*[A-Za-z0-9]"
     },
     "shouldGenerateService": {
       "type": "boolean",
