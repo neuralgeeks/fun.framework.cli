@@ -6,6 +6,8 @@ utility/**/*.js
 utility/**/*.js.map
 utility/**/*.d.ts
 
+# Do not ignore .js template files 
+!src/*/templates/**/*.js
 
 # IDEs
 .idea/
