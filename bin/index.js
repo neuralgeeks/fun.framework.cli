@@ -52,7 +52,7 @@ program
   });
 
 console.log(
-  chalk.yellow(figlet.textSync('fun-cli', { horizontalLayout: 'full' }))
+  chalk.yellow(figlet.textSync('fun.cli', { horizontalLayout: 'full' }))
 );
 
 program.parse(process.argv);

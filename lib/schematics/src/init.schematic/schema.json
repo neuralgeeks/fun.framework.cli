@@ -21,7 +21,7 @@
     },
     "version": {
       "type": "string",
-      "description": "The version of fun-cli"
+      "description": "The version of fun.cli"
     }
   },
   "required": ["name", "shouldGenerateService", "version"]

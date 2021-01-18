@@ -1,13 +1,15 @@
 {
-  "name": "fun-cli.schematics",
+  "name": "fun.framework.cli.schematics",
   "version": "0.0.0",
-  "description": "Schematic core of fun-cli",
+  "description": "Schematic core of fun.framework.cli.",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },
   "keywords": [
-    "schematics"
+    "schematics",
+    "fun.framework.cli",
+    "fun.framework"
   ],
   "author": "",
   "license": "MIT",

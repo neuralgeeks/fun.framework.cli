@@ -1,6 +1,6 @@
-# fun-cli
+# fun.framework.cli
 
-The client of the fun framework
+The client of the fun framework.
 
 ## Linking for local use
 
