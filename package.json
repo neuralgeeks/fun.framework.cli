@@ -4,7 +4,8 @@
   "description": "An awesome CLI for fun.framework.",
   "main": "index.js",
   "scripts": {
-    "test": "node test"
+    "raw-test": "node raw",
+    "test": "echo \"Test are currently under development 🛠. Please stay tuned for updates ⌚️.\""
   },
   "repository": {
     "type": "git",
