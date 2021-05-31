@@ -1,0 +1,14 @@
+{
+  "local": {
+    "authSecret": "<SECRET>"
+  },
+  "development": {
+    "authSecret": "<SECRET>"
+  },
+  "production": {
+    "authSecret": "<SECRET>"
+  },
+  "test": {
+    "authSecret": "<SECRET>"
+  }
+}

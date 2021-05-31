@@ -47,8 +47,9 @@ export function generateRoutes(_options: Schema): Rule {
     // Validate that given service exists
     if (
       !tree
-        .getDir('./services')
+        .getDir('./')
         .subdirs.map((item) => item.toString())
+        .filter((str) => str.includes('.service'))
         .includes(_options.service)
     ) {
       throw new SchematicsException('Given service does not exist');
@@ -76,7 +77,7 @@ export function generateRoutes(_options: Schema): Rule {
 
 function addRouteDeclarationToApp(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    const appPath = `./services/${_options.service}/app.js`;
+    const appPath = `./${_options.service}/app.js`;
     const app = tree.read(appPath);
     if (!app) {
       throw new SchematicsException(
@@ -88,7 +89,7 @@ function addRouteDeclarationToApp(_options: Schema): Rule {
     const sourceFile = createSourceFile(appContent);
 
     // Listing all children
-    const syntaxList = sourceFile.getChildren()[0];
+    const [syntaxList] = sourceFile.getChildren();
     const children = syntaxList.getChildren();
 
     let referenceExpression: ts.Node;

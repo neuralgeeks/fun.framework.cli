@@ -1,0 +1,4 @@
+{
+  "port": <%= port %>,
+  "name": "<%=capitalize(dasherize(name))%> service"
+}

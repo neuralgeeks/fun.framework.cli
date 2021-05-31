@@ -1,0 +1,38 @@
+{
+  "local": {
+    "username": "local_user",
+    "password": "local_password",
+    "database": "local_database",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+00:00"
+  },
+  "development": {
+    "username": "dev_user",
+    "password": "dev_password",
+    "database": "dev_database",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+00:00"
+  },
+  "test": {
+    "username": "test_user",
+    "password": "test_password",
+    "database": "test_database",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+00:00"
+  },
+  "production": {
+    "username": "production_user",
+    "password": "production_password",
+    "database": "production_database",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+00:00"
+  }
+}

@@ -13,11 +13,21 @@
       "minLength": 1,
       "pattern": "[A-Za-z0-9][^]*[A-Za-z0-9]"
     },
+    "port": {
+      "type": "integer",
+      "description": "The port of the new service",
+      "x-prompt": "Enter the port of the new service",
+      "default": 3110
+    },
     "_scope": {
       "type": "string",
       "description": "An optional scope used for npm install task",
       "visible": false
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of fun.cli"
     }
   },
-  "required": ["name"]
+  "required": ["name", "port"]
 }

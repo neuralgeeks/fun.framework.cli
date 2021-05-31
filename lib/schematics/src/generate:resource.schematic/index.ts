@@ -45,14 +45,16 @@ export function generateResource(_options: Schema): Rule {
       _options.name = singular(_options.name);
 
       // Getting services
-      let services = tree.getDir('./services').subdirs;
+      let services = tree
+        .getDir('./')
+        .subdirs.filter((item) => item.toString().includes('.service'));
 
       // Picking service
       let answers = await inquirer.prompt([
         {
           type: 'list',
           name: 'service',
-          message: 'Wich service would you like your resource to be created?',
+          message: 'Which service would you like your resource to be created?',
           choices: services
         }
       ]);

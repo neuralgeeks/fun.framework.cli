@@ -10,11 +10,6 @@ import {
   chain
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
-import {
-  addPackageJsonDependency,
-  NodeDependency,
-  NodeDependencyType
-} from '@schematics/angular/utility/dependencies';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import * as prettier from 'prettier';
 import { Schema } from './schema';
@@ -44,7 +39,7 @@ export function generateService(_options: Schema): Rule {
     }
 
     // Validate that given service exists
-    if (tree.exists(`./services/${strings.dasherize(_options.name)}.service`)) {
+    if (tree.exists(`./${strings.dasherize(_options.name)}.service`)) {
       throw new SchematicsException('Service already exist');
     }
 
@@ -62,57 +57,32 @@ export function generateService(_options: Schema): Rule {
     return chain([
       mergeWith(sourceParametrizedTemplates),
       addServiceToStartConfig(_options),
-      addServiceLocalDependencies(_options),
       npmInstall(_options)
     ]);
   };
 }
 
-function addServiceLocalDependencies(_options: Schema): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    // Reading service's package.json
-    const packageJSONBuffer = tree.read(
-      `./services/${strings.dasherize(_options.name)}.service/package.json`
-    );
-    if (!packageJSONBuffer) {
-      throw new SchematicsException("Failed to read service's package.json");
-    }
-    const packageJSON: any = JSON.parse(packageJSONBuffer.toString());
-
-    // Adding service as local dependency
-    const nodeDependency: NodeDependency = _nodeDependencyFactory(
-      `${packageJSON.name}`,
-      `file:services/${strings.dasherize(_options.name)}.service`
-    );
-    addPackageJsonDependency(tree, nodeDependency);
-  };
-}
-
 function addServiceToStartConfig(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    // Reading start.config.json
-    const startConfigJSONBuffer = tree.read('./config/start.config.json');
-    if (!startConfigJSONBuffer) {
+    // Reading init.config.json
+    const initConfigJSONBuffer = tree.read('./init.config.json');
+    if (!initConfigJSONBuffer) {
       throw new SchematicsException(
-        "Failed to read project's start.config.json"
+        "Failed to read project's init.config.json"
       );
     }
-    let startConfig: any = JSON.parse(startConfigJSONBuffer.toString());
-
-    // Estimating available port
-    let lastService = [...startConfig.services].pop();
-    let estimatedAvailablePort = lastService ? lastService.port + 1 : 3110;
+    let startConfig: any = JSON.parse(initConfigJSONBuffer.toString());
 
     // Adding the new service
     startConfig.services.push({
       service: `${strings.dasherize(_options.name)}.service`,
-      port: estimatedAvailablePort,
+      port: _options.port,
       name: `${strings.capitalize(strings.dasherize(_options.name))} service`
     });
 
     // Updating the start.config.json
     tree.overwrite(
-      './config/start.config.json',
+      './init.config.json',
       prettier.format(JSON.stringify(startConfig), { parser: 'json' })
     );
   };
@@ -122,21 +92,11 @@ function npmInstall(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     _context.addTask(
       new NodePackageInstallTask({
-        workingDirectory: _options.scope ? `${_options.scope}` : './'
+        workingDirectory: `${
+          _options.scope ? `${_options.scope}` : '.'
+        }/${strings.dasherize(_options.name)}.service`
       })
     );
     return tree;
-  };
-}
-
-function _nodeDependencyFactory(
-  packageName: string,
-  version: string
-): NodeDependency {
-  return {
-    type: NodeDependencyType.Default,
-    name: packageName,
-    version: version,
-    overwrite: true
   };
 }

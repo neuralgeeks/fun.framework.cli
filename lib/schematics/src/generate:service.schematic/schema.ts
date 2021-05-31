@@ -17,5 +17,7 @@
 
 export interface Schema {
   name: string;
+  port: number;
+  version: string;
   scope?: string;
 }

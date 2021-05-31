@@ -39,8 +39,9 @@ export function generateRestValidators(_options: Schema): Rule {
     // Validate that given service exists
     if (
       !tree
-        .getDir('./services')
+        .getDir('./')
         .subdirs.map((item) => item.toString())
+        .filter((str) => str.includes('.service'))
         .includes(_options.service)
     ) {
       throw new SchematicsException('Given service does not exist');

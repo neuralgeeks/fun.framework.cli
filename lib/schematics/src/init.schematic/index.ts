@@ -10,7 +10,6 @@ import {
   applyToSubtree
 } from '@angular-devkit/schematics';
 import { strings, normalize } from '@angular-devkit/core';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { generateService } from '../generate:service.schematic/index';
 import { Schema } from './schema';
 
@@ -49,36 +48,20 @@ export function init(_options: Schema): Rule {
 
     // Generation the API service if wanted
     if (_options.shouldGenerateService) {
-      // Generate service and delegate npm install to 'generate-service' schematic
+      // Generate service using 'generate-service' schematic
       rules.push(
         applyToSubtree(normalize(`./${strings.dasherize(_options.name)}`), [
           generateService({
-            name: 'API',
-            scope: `./${strings.dasherize(_options.name)}`
+            name: 'api',
+            scope: `./${strings.dasherize(_options.name)}`,
+            version: _options.version,
+            port: 3110
           })
-        ])
-      );
-    } else {
-      // Run npm install
-      rules.push(
-        applyToSubtree(normalize(`./${strings.dasherize(_options.name)}`), [
-          npmInstall(_options)
         ])
       );
     }
 
     // Return the chain of all rules
     return chain(rules)(tree, _context);
-  };
-}
-
-function npmInstall(_options: Schema): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    _context.addTask(
-      new NodePackageInstallTask({
-        workingDirectory: `./${strings.dasherize(_options.name)}`
-      })
-    );
-    return tree;
   };
 }
