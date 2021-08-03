@@ -155,7 +155,7 @@ function _getRouteDeclarationToInsertContent(
 
   if (firstDeclaration) {
     content = `
-    // ------------------------ routes -------------------------- //
+    //------------------------ routes --------------------------//
     ${content}
     `;
   }

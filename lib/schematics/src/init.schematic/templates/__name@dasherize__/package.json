@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "dev-start:services": "node start",
+    "test-start:services": "NODE_ENV=test node start"
+  }
+}

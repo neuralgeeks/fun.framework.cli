@@ -21,3 +21,10 @@ run(
 //   { version: version },
 //   { dryRun: false, debug: true, force: false }
 // );
+
+/**
+ * - Init with API
+ * - Generate second service
+ * - Generate full resource x2 (API)
+ * - Generate full resource x2 (second)
+ */

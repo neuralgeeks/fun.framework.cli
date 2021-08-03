@@ -1,7 +1,7 @@
 {
   "email": "admin@gmail.com",
   "password": "develop",
-  "loginService": "http://localhost:3110/api/auth.service",
+  "loginService": "http://localhost:3110/g/auth.service",
   "loginRoute": "/auth/login",
-  "microservice": "http://localhost:<%= port %>/<%= dasherize(name) %>.service"
+  "microservice": "http://localhost:3110/g/<%= dasherize(name) %>.service"
 }

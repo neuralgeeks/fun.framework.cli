@@ -4,8 +4,8 @@
   "description": "<%= dasherize(name) %>.service, an awesome fun.framework project",
   "main": "app.js",
   "scripts": {
+    "dev-start": "node start",
     "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all && NODE_ENV=test jest --runInBand --passWithNoTests",
-    "start": "node start.js",
     "local-db:reset": "NODE_ENV=local sequelize db:migrate:undo:all && NODE_ENV=local sequelize db:migrate && NODE_ENV=local sequelize db:seed:all",
     "dev-db:reset": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test-db:reset": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
@@ -27,7 +27,6 @@
   },
   "author": "fun.framework CLI",
   "license": "MIT",
-  "homepage": "",
   "dependencies": {
     "auto-bind": "^4.0.0",
     "axios": "^0.21.1",
@@ -38,15 +37,17 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
-    "fun.framework": "~0.3.1",
+    "fun.framework": "^0.4.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mysql2": "^2.1.0",
     "nodemailer": "^6.5.0",
     "ramda": "^0.27.0",
     "random-key": "^0.3.2",
     "sequelize": "^6.3.4",
-    "uuid": "^8.1.0",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {

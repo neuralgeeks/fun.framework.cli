@@ -27,23 +27,23 @@ const program = new Command();
 
 let path = process.cwd();
 
-// -------------------------- init ---------------------------- //
+//---------------------- init
 program
   .command('init')
-  .description('inits a fun.framework project')
+  .description('inits a fun.framework project.')
   .action(() => {
     init(path);
   });
 
-// --------------------- Generate service --------------------- //
+//---------------------- Generate service
 program
   .command('generate:service')
-  .description('generates a service inside a fun.framework project')
+  .description('generates a service inside a fun.framework project.')
   .action(() => {
     generate(path, 'service');
   });
 
-// --------------------- Generate resource --------------------- //
+//---------------------- Generate resource
 program
   .command('generate:resource')
   .description('generates a Restful resource inside a fun.framework service.')
