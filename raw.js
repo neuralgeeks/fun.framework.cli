@@ -29,6 +29,13 @@ run(
 //   { dryRun: false, debug: false, force: false }
 // );
 
+// run(
+//   `${__dirname}/temp/project`,
+//   'generate-gateway',
+//   { version: version },
+//   { dryRun: false, debug: false, force: false }
+// );
+
 /**
  * - Init with API
  * - Generate second service

@@ -11,6 +11,11 @@
       "factory": "./generate:service.schematic/index#generateService",
       "schema": "./generate:service.schematic/schema.json"
     },
+    "generate-gateway": {
+      "description": "Generates a new gateway service inside a fun.framework project",
+      "factory": "./generate:gateway.schematic/index#generateGateway",
+      "schema": "./generate:gateway.schematic/schema.json"
+    },
     "generate-resource": {
       "description": "Generates a new resource inside a fun.framework project",
       "factory": "./generate:resource.schematic/index#generateResource",

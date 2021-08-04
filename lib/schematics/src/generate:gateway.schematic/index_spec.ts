@@ -1,6 +1,12 @@
+import { Tree } from '@angular-devkit/schematics';
+import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import * as path from 'path';
+
+const collectionPath = path.join(__dirname, '../collection.json');
+
 /**
  * @license
- * Copyright 2020 neuralgeeks LLC.
+ * Copyright 2021 neuralgeeks LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +21,13 @@
  * limitations under the License.
  */
 
-export interface Schema {
-  name: string;
-  version: string;
-  shouldGenerateService: boolean;
-  shouldGenerateGateway: boolean;
-}
+describe('generate-gateway', () => {
+  it('works', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner
+      .runSchematicAsync('generate-gateway', {}, Tree.empty())
+      .toPromise();
+
+    expect(tree.files).toEqual([]);
+  });
+});

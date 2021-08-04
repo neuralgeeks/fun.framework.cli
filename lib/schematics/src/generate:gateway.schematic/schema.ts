@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 neuralgeeks LLC.
+ * Copyright 2021 neuralgeeks LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 export interface Schema {
   name: string;
+  port: number;
   version: string;
-  shouldGenerateService: boolean;
-  shouldGenerateGateway: boolean;
+  scope?: string;
 }

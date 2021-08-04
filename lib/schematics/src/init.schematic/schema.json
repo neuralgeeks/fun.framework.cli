@@ -19,10 +19,21 @@
       "x-prompt": "Would you like to create a base API service?",
       "default": true
     },
+    "shouldGenerateGateway": {
+      "type": "boolean",
+      "description": "Wether or not the init command should create the base gateway.service",
+      "x-prompt": "Would you like to create a base gateway service?",
+      "default": true
+    },
     "version": {
       "type": "string",
       "description": "The version of fun.cli"
     }
   },
-  "required": ["name", "shouldGenerateService", "version"]
+  "required": [
+    "name",
+    "shouldGenerateService",
+    "shouldGenerateGateway",
+    "version"
+  ]
 }

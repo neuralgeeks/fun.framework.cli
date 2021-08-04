@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "fun-cli.generate:gateway",
+  "title": "Generate gateway service",
+  "type": "object",
+  "description": "Generates a new gateway service inside a fun.framework project",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the gateway service",
+      "x-prompt": "Enter the name of the new gateway service",
+      "default": "gateway",
+      "minLength": 1,
+      "pattern": "[A-Za-z0-9][^]*[A-Za-z0-9]"
+    },
+    "port": {
+      "type": "integer",
+      "description": "The port of the new gateway service",
+      "x-prompt": "Enter the port of the new gateway service",
+      "default": 3110
+    },
+    "_scope": {
+      "type": "string",
+      "description": "An optional scope used for npm install task",
+      "visible": false
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of fun.cli"
+    }
+  },
+  "required": ["port"]
+}

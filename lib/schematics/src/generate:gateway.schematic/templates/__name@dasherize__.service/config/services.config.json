@@ -1,0 +1,22 @@
+{
+  "local": {
+    "auth.service": "<URL>",
+    "api.service": "<URL>",
+    "authSecret": "<SECRET>"
+  },
+  "development": {
+    "auth.service": "<URL>",
+    "api.service": "<URL>",
+    "authSecret": "<SECRET>"
+  },
+  "production": {
+    "auth.service": "<URL>",
+    "api.service": "<URL>",
+    "authSecret": "<SECRET>"
+  },
+  "test": {
+    "auth.service": "<URL>",
+    "api.service": "<URL>",
+    "authSecret": "<SECRET>"
+  }
+}

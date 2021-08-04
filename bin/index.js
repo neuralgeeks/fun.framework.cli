@@ -43,6 +43,16 @@ program
     generate(path, 'service');
   });
 
+//---------------------- Generate gateway service
+program
+  .command('generate:gateway')
+  .description(
+    'generates a new gateway service inside a fun.framework project.'
+  )
+  .action(() => {
+    generate(path, 'gateway');
+  });
+
 //---------------------- Generate resource
 program
   .command('generate:resource')

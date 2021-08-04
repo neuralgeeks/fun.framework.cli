@@ -1,0 +1,52 @@
+{
+  "name": "<%= dasherize(name) %>.service",
+  "version": "1.0.0",
+  "description": "<%= dasherize(name) %>.service, an awesome fun.framework project",
+  "main": "app.js",
+  "scripts": {
+    "dev-start": "node start",
+    "test": "NODE_ENV=test jest --runInBand --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./tests/jest.setup.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testSequencer": "./tests/jest.sequencer.js"
+  },
+  "author": "fun.framework CLI",
+  "license": "MIT",
+  "dependencies": {
+    "auto-bind": "^4.0.0",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "cron-validator": "^1.1.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-formidable": "^1.2.0",
+    "fun.framework": "^0.4.0",
+    "http-proxy": "^1.18.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "ramda": "^0.27.0",
+    "sequelize": "^6.3.4",
+    "socket.io": "^2.3.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "jest": "^26.4.0",
+    "joi": "^14.3.1",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^4.0.2"
+  }
+}

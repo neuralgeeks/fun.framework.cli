@@ -11,6 +11,7 @@ import {
 } from '@angular-devkit/schematics';
 import { strings, normalize } from '@angular-devkit/core';
 import { generateService } from '../generate:service.schematic/index';
+import { generateGateway } from '../generate:gateway.schematic';
 import { Schema } from './schema';
 
 /**
@@ -53,6 +54,21 @@ export function init(_options: Schema): Rule {
         applyToSubtree(normalize(`./${strings.dasherize(_options.name)}`), [
           generateService({
             name: 'api',
+            scope: `./${strings.dasherize(_options.name)}`,
+            version: _options.version,
+            port: 3111
+          })
+        ])
+      );
+    }
+
+    // Generation the gateway service if wanted
+    if (_options.shouldGenerateGateway) {
+      // Generate service using 'generate-gateway' schematic
+      rules.push(
+        applyToSubtree(normalize(`./${strings.dasherize(_options.name)}`), [
+          generateGateway({
+            name: 'gateway',
             scope: `./${strings.dasherize(_options.name)}`,
             version: _options.version,
             port: 3110
