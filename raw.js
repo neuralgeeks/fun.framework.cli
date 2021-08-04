@@ -36,6 +36,20 @@ run(
 //   { dryRun: false, debug: false, force: false }
 // );
 
+// run(
+//   `${__dirname}/temp/project`,
+//   'setup-scheduler',
+//   { version: version },
+//   { dryRun: false, debug: false }
+// );
+
+// run(
+//   `${__dirname}/temp/project`,
+//   'setup-broadcaster',
+//   { version: version },
+//   { dryRun: false, debug: false }
+// );
+
 /**
  * - Init with API
  * - Generate second service

@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "fun-cli.setup:scheduler",
+  "title": "Setup scheduler",
+  "type": "object",
+  "description": "Setups the scheduler inside a fun.framework service"
+}

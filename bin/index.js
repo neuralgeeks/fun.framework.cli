@@ -5,6 +5,7 @@ const figlet = require('figlet');
 const { Command } = require('commander');
 const init = require('../lib/commands/init.command');
 const generate = require('../lib/commands/generate.command');
+const setup = require('../lib/commands/setup.command');
 
 const program = new Command();
 
@@ -69,6 +70,22 @@ program
   )
   .action(() => {
     generate(path, 'service-interface');
+  });
+
+//---------------------- Setup scheduler
+program
+  .command('setup:scheduler')
+  .description('setups the scheduler inside a fun.framework service.')
+  .action(() => {
+    setup(path, 'scheduler');
+  });
+
+//---------------------- Setup broadcaster
+program
+  .command('setup:broadcaster')
+  .description('setups the broadcaster inside a fun.framework service.')
+  .action(() => {
+    setup(path, 'broadcaster');
   });
 
 console.log(

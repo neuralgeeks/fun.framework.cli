@@ -25,6 +25,16 @@
       "description": "Generates a new service interface inside a fun.framework service",
       "factory": "./generate:service-interface.schematic/index#generateServiceInterface",
       "schema": "./generate:service-interface.schematic/schema.json"
+    },
+    "setup-scheduler": {
+      "description": "setups the scheduler inside a fun.framework service",
+      "factory": "./setup:scheduler.schematic/index#setupScheduler",
+      "schema": "./setup:scheduler.schematic/schema.json"
+    },
+    "setup-broadcaster": {
+      "description": "setups the broadcaster inside a fun.framework service",
+      "factory": "./setup:broadcaster.schematic/index#setupBroadcaster",
+      "schema": "./setup:broadcaster.schematic/schema.json"
     }
   }
 }

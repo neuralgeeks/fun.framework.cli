@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "fun-cli.setup:broadcaster",
+  "title": "Setup broadcaster",
+  "type": "object",
+  "description": "Setups the broadcaster inside a fun.framework service"
+}
