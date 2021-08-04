@@ -1,5 +1,8 @@
-const { run } = require('../schematics/API/engine');
-const { version } = require('../../package.json');
+import { Tree } from '@angular-devkit/schematics';
+import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
+import * as path from 'path';
+
+const collectionPath = path.join(__dirname, '../collection.json');
 
 /**
  * @license
@@ -18,13 +21,13 @@ const { version } = require('../../package.json');
  * limitations under the License.
  */
 
-let generate = async (path, command) => {
-  run(
-    path,
-    `generate-${command}`,
-    { version: version },
-    { dryRun: false, debug: false, force: false }
-  );
-};
+describe('generate-service-interface', () => {
+  it('works', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner
+      .runSchematicAsync('generate-service-interface', {}, Tree.empty())
+      .toPromise();
 
-module.exports = generate;
+    expect(tree.files).toEqual([]);
+  });
+});

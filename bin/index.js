@@ -51,6 +51,16 @@ program
     generate(path, 'resource');
   });
 
+//---------------------- Generate service interface
+program
+  .command('generate:service-interface')
+  .description(
+    'generates a new service interface inside a fun.framework service.'
+  )
+  .action(() => {
+    generate(path, 'service-interface');
+  });
+
 console.log(
   chalk.yellow(figlet.textSync('fun.cli', { horizontalLayout: 'full' }))
 );

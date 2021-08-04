@@ -1,9 +1,6 @@
-const { run } = require('../schematics/API/engine');
-const { version } = require('../../package.json');
-
 /**
  * @license
- * Copyright 2020 neuralgeeks LLC.
+ * Copyright 2021 neuralgeeks LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +15,6 @@ const { version } = require('../../package.json');
  * limitations under the License.
  */
 
-let generate = async (path, command) => {
-  run(
-    path,
-    `generate-${command}`,
-    { version: version },
-    { dryRun: false, debug: false, force: false }
-  );
-};
-
-module.exports = generate;
+export interface Schema {
+  name: string;
+}

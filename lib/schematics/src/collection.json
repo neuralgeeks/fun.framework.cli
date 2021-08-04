@@ -15,6 +15,11 @@
       "description": "Generates a new resource inside a fun.framework project",
       "factory": "./generate:resource.schematic/index#generateResource",
       "schema": "./generate:resource.schematic/schema.json"
+    },
+    "generate-service-interface": {
+      "description": "Generates a new service interface inside a fun.framework service",
+      "factory": "./generate:service-interface.schematic/index#generateServiceInterface",
+      "schema": "./generate:service-interface.schematic/schema.json"
     }
   }
 }

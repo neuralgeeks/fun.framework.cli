@@ -22,6 +22,13 @@ run(
 //   { dryRun: false, debug: true, force: false }
 // );
 
+// run(
+//   `${__dirname}/temp/project`,
+//   'generate-service-interface',
+//   { version: version },
+//   { dryRun: false, debug: false, force: false }
+// );
+
 /**
  * - Init with API
  * - Generate second service
