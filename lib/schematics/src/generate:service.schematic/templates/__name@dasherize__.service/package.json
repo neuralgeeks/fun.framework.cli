@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev-start": "node start",
-    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all && NODE_ENV=test jest --runInBand --passWithNoTests",
+    "test": "NODE_ENV=test jest --runInBand --passWithNoTests",
     "local-db:reset": "NODE_ENV=local sequelize db:migrate:undo:all && NODE_ENV=local sequelize db:migrate && NODE_ENV=local sequelize db:seed:all",
     "dev-db:reset": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "test-db:reset": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
@@ -23,7 +23,9 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ],
-    "testSequencer": "./tests/jest.sequencer.js"
+    "testSequencer": "./tests/jest.sequencer.js",
+    "globalSetup": "./tests/jest.setup.js",
+    "globalTeardown": "./tests/jest.teardown.js"
   },
   "author": "fun.framework CLI",
   "license": "MIT",

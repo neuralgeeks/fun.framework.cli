@@ -4,8 +4,7 @@
   "description": "<%= dasherize(name) %>.service, an awesome fun.framework project",
   "main": "app.js",
   "scripts": {
-    "dev-start": "node start",
-    "test": "NODE_ENV=test jest --runInBand --passWithNoTests"
+    "dev-start": "node start"
   },
   "repository": {
     "type": "git",
