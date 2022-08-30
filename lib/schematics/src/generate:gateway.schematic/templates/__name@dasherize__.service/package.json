@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "jest": "^27.0.6",
-    "sequelize-cli": "^<%= version %>",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.4",
     "apidoc": "^0.51.1"
   },
